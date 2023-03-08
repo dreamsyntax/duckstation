@@ -630,6 +630,13 @@
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="scanFreezeSelectedWatch">
+               <property name="text">
+                <string>Freeze Selected Entries in the Watch List</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="scanLoadWatch">
                <property name="enabled">
                 <bool>false</bool>

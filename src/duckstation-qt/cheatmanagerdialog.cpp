@@ -186,6 +186,7 @@ void CheatManagerDialog::connectUi()
   connect(m_ui.scanAddWatch, &QPushButton::clicked, this, &CheatManagerDialog::addToWatchClicked);
   connect(m_ui.scanAddManualAddress, &QPushButton::clicked, this, &CheatManagerDialog::addManualWatchAddressClicked);
   connect(m_ui.scanRemoveWatch, &QPushButton::clicked, this, &CheatManagerDialog::removeWatchClicked);
+  connect(m_ui.scanFreezeSelectedWatch, &QPushButton::clicked, this, &CheatManagerDialog::freezeSelectedWatchClicked);
   connect(m_ui.scanTable, &QTableWidget::currentItemChanged, this, &CheatManagerDialog::scanCurrentItemChanged);
   connect(m_ui.watchTable, &QTableWidget::currentItemChanged, this, &CheatManagerDialog::watchCurrentItemChanged);
   connect(m_ui.scanTable, &QTableWidget::itemChanged, this, &CheatManagerDialog::scanItemChanged);
@@ -779,6 +780,21 @@ void CheatManagerDialog::addManualWatchAddressClicked()
                    static_cast<MemoryAccessSize>(index % 3), (index > 3), false);
   updateWatch();
 }
+
+void CheatManagerDialog::freezeSelectedWatchClicked()
+{
+  const int indexFirst = getSelectedWatchIndexFirst();
+  const int indexLast = getSelectedWatchIndexLast();
+  if (indexFirst < 0)
+    return;
+
+  for (int index = indexLast; index >= indexFirst; index--)
+  {
+    m_watch.SetEntryFreeze(static_cast<u32>(index), true);
+    updateWatch();
+  }
+}
+
 
 void CheatManagerDialog::removeWatchClicked()
 {
